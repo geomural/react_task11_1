@@ -36,6 +36,7 @@ export default function serviceEditReducer(state = initialState, action) {
         item,
         loading: false,
         error: null,
+        redirect: false,
       };
     case FETCH_SERVICE_FAILURE:
       const {error} = action.payload;
