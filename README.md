@@ -60,4 +60,5 @@
 
 Для сохранения необходимо отправить POST-запрос по адресу http://localhost:7070/api/services, передав весь JSON (с id)
 
+Примечание: в данном решении сохрание не происходит
 <i>Исходное задание: https://github.com/netology-code/ra16-homeworks/tree/master/thunk/api-redux</i>
