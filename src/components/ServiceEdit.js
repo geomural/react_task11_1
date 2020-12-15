@@ -37,7 +37,7 @@ function ServiceEdit({match}) {
   const handleSubmit = evt => {
     evt.preventDefault();
     let form = evt.target;
-    saveService(dispatch, history, match.params.id, form.name.value, form.price.value, form.content.value);
+    saveService(dispatch, match.params.id, form.name.value, form.price.value, form.content.value);
   }
 
   return (
