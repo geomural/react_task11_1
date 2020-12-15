@@ -25,6 +25,7 @@
 <img src="https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/thunk/api-redux/assets/list.png" alt=""/>
 
 Для главной страницы сервер присылает данные в формате:
+
 [
    {"id":1,"name":"Замена стекла","price":21000},
    {"id":2,"name":"Замена дисплея","price":25000},
