@@ -37,16 +37,11 @@ function ServiceEdit({match}) {
   const handleSubmit = evt => {
     evt.preventDefault();
     let form = evt.target;
-    // let dataToSave = {
-    //   name: form.name.value,
-    //   price: form.price.value,
-    //   content: form.content.value
-    // }
     saveService(dispatch, history, match.params.id, form.name.value, form.price.value, form.content.value);
-    //history.push("/services");
   }
 
   return (
+    redirect ? null :
     <form id="form" onSubmit={handleSubmit}>
       <table>
         <tbody>

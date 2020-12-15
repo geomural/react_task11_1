@@ -19,7 +19,6 @@ function ServiceList(props) {
   }
 
   const handleEdit = id => {
-    console.log("Edit...", id);
     history.push(`/services/${id}`);
   }
 

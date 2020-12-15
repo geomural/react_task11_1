@@ -25,7 +25,6 @@ export default function serviceEditReducer(state = initialState, action) {
         error: null,
       };
     case FETCH_SERVICE_REQUEST:
-      console.log("FETCH_SERVICE_REQUEST! ! !")
       return {
         ...state,
         loading: true,
@@ -53,8 +52,8 @@ export default function serviceEditReducer(state = initialState, action) {
         error: updateError,
       };
     case UPDATE_SERVICE_SUCCESS:
-      // const {}
-      return { ...initialState,
+      return { 
+        ...initialState,
         redirect: true,
        };
     case CHANGE_SERVICE_FIELD:

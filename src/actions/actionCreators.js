@@ -44,25 +44,6 @@ export const fetchServiceSuccess = item => ({
   },
 });
 
-// export const saveServiceRequest = (name, price) => ({
-//   type: ADD_SERVICE_REQUEST,
-//   payload: {
-//     name,
-//     price,
-//   },
-// })
-
-// export const saveServiceFailure = error => ({
-//   type: ADD_SERVICE_FAILURE,
-//   payload: {
-//     error,
-//   },
-// });
-
-// export const saveServiceSuccess = () => ({
-//   type: ADD_SERVICE_SUCCESS,
-// });
-
 export const changeServiceField = (name, value) => ({
   type: CHANGE_SERVICE_FIELD,
   payload: {
@@ -107,7 +88,6 @@ export const fetchServices = async dispatch => {
       throw new Error(response.statusText);
     }
     const data = await response.json();
-    console.log(data);
     dispatch(fetchServicesSuccess(data));
   } catch (e) {
     dispatch(fetchServicesFailure(e.message));
@@ -122,9 +102,6 @@ export const fetchService = async (dispatch, id) => {
       throw new Error(response.statusText);
     }
     const data = await response.json();
-    console.log("fetchService response data", data);
-    // const item = data.find(el => el.id === id);
-
     dispatch(fetchServiceSuccess(data));
   } catch (e) {
     dispatch(fetchServiceFailure(e.message));
@@ -154,21 +131,15 @@ export const saveServiceSuccess = () => ({
 export const saveService = async (dispatch, id, name, price, content) => {
   dispatch(saveServiceRequest());
   try {
-    console.log("1");
     const response = await fetch(process.env.REACT_APP_API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      // body: JSON.stringify({ id, name, price, content }),
-      body: JSON.stringify({ "id": id, 
-                              "name": name, 
-                              "price": price, 
-                              "content": content }),
+      body: JSON.stringify({ id, name, price, content }),
     })    
     if (!response.ok) {
       throw new Error(response.statusText);
     }
     dispatch(saveServiceSuccess());
-    //fetchServices(dispatch);
   } catch (e) {
     dispatch(saveServiceFailure(e.message));
   }
