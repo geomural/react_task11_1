@@ -1,68 +1,65 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Александра Шарифуллина
 
-## Available Scripts
+Домашнее задание 11.1
 
-In the project directory, you can run:
+<h1>Redux Thunk</h1>
 
-### `npm start`
+<h2>Медленное и глючное API (Redux)</h2>
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Вам необходимо переделать проект с лекции с использованием Router, а также нормальной обработкой загрузки и отображения ошибок.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Всё состояние должно храниться в Redux Store. Для взаимодействия с HTTP используйте fetch и чистый Redux (без дополнительных библиотек), но помните, что вы работаете с побочными эффектами.
 
-### `npm test`
+При переходе на главную страницу пользователя должно перенаправлять автоматически на адрес '/services', на котором загружается список услуг (GET http://localhost:7070/api/services).
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+При загрузке данных (GET) должен отображаться спиннер (лоадер):
 
-### `npm run build`
+<img src="https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/thunk/api-redux/assets/spinner.png" alt=""/>
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+При получении ошибки (статус не 2xx):
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+<img src="https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/thunk/api-redux/assets/error.png" alt=""/>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+При нормальных загруженных данных:
 
-### `npm run eject`
+<img src="https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/thunk/api-redux/assets/list.png" alt=""/>
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Для главной страницы сервер присылает данные в формате:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+[
+   {"id":1,"name":"Замена стекла","price":21000},
+   {"id":2,"name":"Замена дисплея","price":25000},
+   {"id":3,"name":"Замена аккумулятора","price":4000},
+   {"id":4,"name":"Замена микрофона","price":2500}
+]
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+При нажатии на кнопку удалить происходит удаление записи с последующей загрузкой всего списка.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Для удаления необходимо отправить запрос DELETE http://localhost:7070/api/serviced/:id, где id - id сервиса.
 
-## Learn More
+При нажатии на кнопку редактировать происходит переход по адресу: '/services/:id`, где id - это id сервиса.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+В форму подтягиваются данные через GET-запрос (требования к отображению лоадара и ошибок - соответствующие):
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<img src="https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/thunk/api-redux/assets/edit.png" alt=""/>
 
-### Code Splitting
+Обратите внимание, что в форме есть поле content, которое приходит только если сделать запрос GET http://localhost:7070/api/services/:id:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+{
+    "id":1,
+    "name":"Замена стекла",
+    "price":21000,
+    "content":"Стекло оригинал от Apple"
+}
 
-### Analyzing the Bundle Size
+При нажатии на кнопку Отмена, происходит возврат к предыдущей странице.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+При нажатии на кнопку Сохранить, происходит сохранение записи. При этом:
+1. Спиннер должен отображаться
+2. Если сохранение прошло успешно, выполняется переход на страницу со списком
+3. Если сохранение прошло с ошибкой, переход не осуществляется, высвечивается сообщение об ошибке.
 
-### Making a Progressive Web App
+Для сохранения необходимо отправить POST-запрос по адресу http://localhost:7070/api/services, передав весь JSON (с id)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Примечание: в данном решении сохрание не происходит
+<i>Исходное задание: https://github.com/netology-code/ra16-homeworks/tree/master/thunk/api-redux</i>
