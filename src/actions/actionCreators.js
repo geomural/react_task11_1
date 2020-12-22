@@ -128,18 +128,25 @@ export const saveServiceSuccess = () => ({
   type: UPDATE_SERVICE_SUCCESS,
 });
 
+
 export const saveService = async (dispatch, id, name, price, content) => {
   dispatch(saveServiceRequest());
   try {
-    const response = await fetch(process.env.REACT_APP_API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id, name, price, content }),
-    })    
-    if (!response.ok) {
-      throw new Error(response.statusText);
+    const config = {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id, name, price, content })
     }
-    dispatch(saveServiceSuccess());
+    const response = await fetch(process.env.REACT_APP_API_URL, config)
+    if (response.ok) {
+      dispatch(saveServiceSuccess());
+      return response
+    } else {
+      dispatch(saveServiceFailure("error"));  
+    }
   } catch (e) {
     dispatch(saveServiceFailure(e.message));
   }
